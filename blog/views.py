@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Post
 from .forms import PostForm
 from django.contrib.auth.views import logout
+from django.contrib.auth import authenticate
+
 
 def post_list(request):
 	posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
@@ -63,10 +65,10 @@ def post_remove(request, pk):
     post.delete()
     return redirect('post_list')
 
-def login_view(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
+def login(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
         return redirect('post_list')

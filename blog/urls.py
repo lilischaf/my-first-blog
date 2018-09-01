@@ -14,7 +14,7 @@ urlpatterns = [
 	path('drafts/', views.post_draft_list, name='post_draft_list'),
 	path('post/(?P<pk>\d+)/publish/', views.post_publish, name='post_publish'),
 	path('post/(?P<pk>\d+)/remove/', views.post_remove, name='post_remove'),
-    path('accounts/login_view/', views.login_view, name='login_view'),
+    path('login/', views.login, name='login'),
     path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout')
 
 
