@@ -1,9 +1,22 @@
 from django.urls import path
 from . import views
+from django.conf.urls import include, url
+from django.conf import settings
+from django.contrib.auth.views import logout
+
+
 
 urlpatterns = [
 	path('', views.post_list, name='post_list'),
 	path('post/<int:pk>/', views.post_detail, name='post_detail'),
 	path('post/new/', views.post_new, name='post_new'),
 	path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
+	path('drafts/', views.post_draft_list, name='post_draft_list'),
+	path('post/(?P<pk>\d+)/publish/', views.post_publish, name='post_publish'),
+	path('post/(?P<pk>\d+)/remove/', views.post_remove, name='post_remove'),
+    path('accounts/login_view/', views.login_view, name='login_view'),
+    path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout')
+
+
 ]
+
